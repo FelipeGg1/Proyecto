@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class = " rounded-bottom text-center ">
+    <br>
+    <h3> total {{countprod}}</h3>
+    <h3> page {{pageprod.number}}</h3>
+</div>
+    <!-- <h2>Page Number:{{page.number}}</h2> -->
+
+    <section id="productos ">
+        <div class="filaimg">
+            <div class="d-flex flex-wrap d-flex justify-content-center">
+                
+                {% for p in pageprod.object_list %}
+                    <div class="filares" >
+                        <br>
+                        <img class="img-thumbnail" alt="Cinque Terre" width="304" height="236" src="{{ p.imagen.url}}" >
+                        <br>
+                        <h4>
+                        <a href="{% url 'producto' p.id_producto %}">{{p.nombre}}</a> &nbsp   
+                        </h4>                     
+                        <div class="text-center">
+                        <a>descripcion:</a> &nbsp 
+                        <a>{{ p.descripcion}}</a> &nbsp
+                        <br>
+                        <a>stock:</a> &nbsp
+                        <a>{{ p.stock}}</a> &nbsp
+                        <br>
+                        <a>tipo de producto:</a> &nbsp
+                        <a>{{ p.tipo_producto}}</a> &nbsp
+            
+                        
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <nav aria-label="Page navigation example"class="d-flex justify-content-center">
+                {% if pageprod.has_previous %}
+                <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="{% url 'index' %}?pageprod={{ pageprod.previous_page_number }}#productos">Anterior</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link disabled " role="button" aria-disabled="true">Anterior</a></li>
+                {% endif %}
+                {% if pageprod.has_next %}
+                <li class="page-item"><a class="page-link" href="{% url 'index' %}?pageprod={{ pageprod.next_page_number }}#productos">Siguiente</a></li>
+                {% else %}
+                <li class="page-item"><a class="page-link disabled" role="button" aria-disabled="true">Siguiente</a></li>
+                {% endif %}
+                </ul>
+                <br>
+            </nav>
+            <br>
+        </div>
+         
+        
+    </section>
+    <br>
+
+    
+</body>
+</html>
